@@ -186,4 +186,4 @@ GROUP BY FORMAT(DATEADD(DAY, 2, order_time),'dddd');
  ![Pizza Metrics 10](https://user-images.githubusercontent.com/96012488/187223486-1cbf4ec2-200e-40b8-b0f2-d28be93652b3.png)
 
 
-***Click [here]() for solution for B. Runner and Customer Experience!***
+***Click [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/blob/main/Case%20Study%20%232%20-%20Pizza%20Runner/B.%20Runner%20and%20Customer%20Experience.md) for solution for B. Runner and Customer Experience!***
