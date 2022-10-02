@@ -22,11 +22,19 @@ like Data Cleaning, Data Transformation and Exploration.
 
 View the case study [here](https://8weeksqlchallenge.com/case-study-1/) and my **solution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/blob/main/Case%20Study%20%231%20-%20Danny's%20Diner/Solution.md).
 
-### Business Task
+*** 
 
-Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite.
+## Case Study #2: Pizza Runner
 
-### Entity Relationship Diagram
+![image](https://user-images.githubusercontent.com/96012488/193450884-8db85cc3-fbc9-4038-99f5-87c3c611d40d.png)
 
-![image](https://user-images.githubusercontent.com/96012488/187035011-ec61821a-288f-456c-9c32-5727edc9288c.png)
+View the case study [here](https://8weeksqlchallenge.com/case-study-2/) and my **solution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/tree/main/Case%20Study%20%232%20-%20Pizza%20Runner).
+
+***
+
+## Case Study #3: Foodie-Fi
+
+![image](https://user-images.githubusercontent.com/96012488/193450997-465a1289-9e24-420d-a646-995cd0323994.png)
+
+View thw case study [here](https://8weeksqlchallenge.com/case-study-3/) and my **solution** [here]().
 
