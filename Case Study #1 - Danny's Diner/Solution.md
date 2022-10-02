@@ -8,6 +8,8 @@ View the raw SQL Syntax [here](https://github.com/PriyaPalak/8-Week-SQL-Challeng
 
 ### 1. What is the total amount each customer spent at the restaurant?
 
+**Answer:** 
+
 ````sql
 SELECT
  s.customer_id, SUM(price) AS total_amount_spent
@@ -16,9 +18,11 @@ JOIN menu m
 ON s.product_id = m.product_id
 GROUP BY s.customer_id;
 ````
-**Answer:** 
+
 
 ### 2. How many days has each customer visited the restaurant? 
+
+**Answer:**
 
 ````sql
 SELECT 
@@ -26,9 +30,11 @@ SELECT
 FROM sales
 GROUP BY customer_id;
 ````
-**Answer:**
+
 
 ### 3. What was the first item from the menu purchased by each customer?
+
+**Answer:** 
 
 ````sql
 -- Assuming that if the order_date is same for a customer, the item listed first in the table was purchased first.
@@ -46,7 +52,7 @@ JOIN menu m
 ON s.product_id = m.product_id) AS S
 WHERE S.rnk = 1;
 ````
-**Answer:** 
+
 
 ````sql
 
@@ -62,8 +68,6 @@ ON s.product_id = m.product_id) AS S
 WHERE S.rnk = 1;
 ````
 
-**Answer:**
-
 ````sql
 /* 
 ROW_NUMBER() and RANK(), both the window functions can be used to assign a rank to the rows of the table. However, the latter considers 
@@ -77,6 +81,8 @@ Using ROW_NUMBER() gives a single result here as even for the same order_date, t
 
 ### 4. What is the most purchased item on the menu and how many times was it purchased by all customers?
 
+**Answer:** 
+
 ````sql
 SELECT 
  s.product_id,m.product_name,COUNT(s.product_id) as number_purchases
@@ -86,9 +92,11 @@ ON s.product_id = m.product_id
 GROUP BY s.product_id,m.product_name;
 ````
 
-**Answer:**
+
 
 ### 5. Which item was the most popular for each customer?
+
+**Answer:** 
 
 ````sql
 SELECT 
@@ -103,9 +111,10 @@ GROUP BY m.product_name,s.customer_id) AS X
 WHERE X.rnk = 1;
 ````
 
-**Answer:**
 
 ### 6. Which item was purchased first by the customer after they became a member?
+
+**Answer:** 
 
 ````sql
 --Let's assume that if the order_date and join_date are same for a member, they became the member first and then placed the order.
@@ -146,13 +155,14 @@ SELECT
 FROM members_first_item_cte
 WHERE rnk = 1;
 ````
-**Answer:**
 
 ````sql
 --A common application of Nested Query and CTE is that both of them can be used to create temporary tables which exist only within the scope of the query.
 ````
 
 ### 7. Which item was purchased just before the customer became a member?
+
+**Answer:** 
 
 ````sql 
 SELECT 
@@ -168,9 +178,11 @@ WHERE s.order_date < me.join_date) AS X
 WHERE X.rnk = 1;
 ````
 
-**Answer:**
+
 
 ### 8. What is the total items and amount spent for each member before they became a member?
+
+**Answer:** 
 
 ````sql
 SELECT 
@@ -185,10 +197,10 @@ GROUP BY s.customer_id
 ORDER BY s.customer_id;
 ````
 
-**Answer:**
-
 
 ### My Question: What is the total items and amount spent for each member per item before they became a member?
+
+**Answer:** 
 
 ````sql
 SELECT 
@@ -203,10 +215,10 @@ GROUP BY m.product_name,s.customer_id
 ORDER BY s.customer_id,m.product_name;
 ````
 
-**Answer:**
-
 
 ### 9. If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+
+**Answer:** 
 
 ````sql
 SELECT 
@@ -238,9 +250,9 @@ ON s.product_id = m.product_id
 GROUP BY s.customer_id;
 ````
 
-**Answer:**
-
 ### 10. In the first week after a customer joins the program (including their join date) they earn 2x points on all items , not just sushi - how many points do customer A and B have at the end of January?
+
+**Answer:** 
 
 ````sql
 WITH total_points_cte AS
@@ -262,7 +274,7 @@ FROM total_points_cte
 GROUP BY customer_id;
 ````
 
-**Answer:**
+
 
 
 
