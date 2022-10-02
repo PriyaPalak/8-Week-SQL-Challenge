@@ -56,7 +56,7 @@ VALUES
   ('B', '2021-01-09');
 
 
--- Database created with 3 tables namely "sales" , "menu" and "members"
+-- Database Creation Completed
 
 
 
@@ -278,7 +278,7 @@ GROUP BY customer_id;
 
 
  
- /* BONUS QUESTION */
+ /* BONUS QUESTION : Join all the Things */
 
  SELECT s.customer_id,s.order_date,m.product_name,m.price,
  CASE WHEN (s.order_date >= me.join_date) AND (s.customer_id = me.customer_id) THEN 'Y'
@@ -292,21 +292,30 @@ GROUP BY customer_id;
 
 
 
- /* BONUS QUESTION */
+ /* BONUS QUESTION: Rank all the Things */
 
 
+  WITH cte AS
+ (
  SELECT s.customer_id,s.order_date,m.product_name,m.price,
  CASE WHEN (s.order_date >= me.join_date) AND (s.customer_id = me.customer_id) THEN 'Y'
  ELSE 'N'
- END AS member,
- CASE WHEN (s.order_date >= me.join_date) AND (s.customer_id != me.customer_id) THEN 'null'
- ELSE RANK() OVER (PARTITION BY s.customer_id ORDER BY order_date)
- END AS ranking
+ END AS member
  FROM sales s
  JOIN menu m
  ON s.product_id = m.product_id
  LEFT JOIN members me
- ON s.customer_id = me.customer_id;
+ ON s.customer_id = me.customer_id
+ )
+ SELECT *,
+ CASE WHEN member = 'N' THEN 'null'
+ ELSE RANK() OVER (PARTITION BY customer_id ORDER BY order_date)
+ END AS ranking
+ FROM cte
+ ORDER BY customer_id;
+ 
+ 
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
