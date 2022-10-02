@@ -1,5 +1,8 @@
 # :spaghetti: Case Study #1. Danny's Diner
 
+## Business Task: 
+Danny wants to use the data to answer a few simple questions about his customers, especially about their visiting patterns, how much money they’ve spent and also which menu items are their favourite. Having this deeper connection with his customers will help him deliver a better and more personalised experience for his loyal customers.
+
 ## Solution
 
 View the raw SQL Syntax [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/blob/main/Case%20Study%20%231%20-%20Danny's%20Diner/Raw%20SQL%20File).
