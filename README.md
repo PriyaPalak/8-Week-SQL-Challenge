@@ -2,7 +2,7 @@
 
 This repository contains the solution for the 8 case studies in [#8WeekSQLChallenge](https://8weeksqlchallenge.com/).
 
-These Case Studies focus on various concepts of SQL starting from the basics to the advanced level. Also, you get to practice different steps involved in Data Analytics
+These Case Studies focus on various concepts of SQL starting from the basics to the advanced level. Also, you get to deal with data coming from various domains and practice different steps involved in Data Analytics
 like Data Cleaning, Data Transformation and Exploration.
 
 ## :books: Table of Contents
