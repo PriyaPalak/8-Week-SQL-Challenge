@@ -11,6 +11,12 @@ FROM customer_nodes;
 ````
 **Answer:**
 
+![1 CS 4](https://user-images.githubusercontent.com/96012488/200128877-cb0f5d02-95c1-4611-bb43-075b388541f9.png)
+
+- There are 5 unique nodes.
+
+
+
 ### 2. What is the number of nodes per region?
 
 ````sql
@@ -21,6 +27,10 @@ GROUP BY region_id;
  ````
  
  **Answer:**
+ 
+ ![2 CS 4](https://user-images.githubusercontent.com/96012488/200128911-7a6d64d1-cf52-4b92-97ed-dc652d189f46.png)
+
+- Each region has 5 unique nodes.
  
  ### 3. How many customers are allocated to each region?
  
@@ -36,6 +46,10 @@ GROUP BY region_id;
  
  **Answer:**
  
+ ![3 CS 4](https://user-images.githubusercontent.com/96012488/200128988-2bd1b62c-f8c5-4302-bf50-eb6920814dc7.png)
+
+
+ 
  ### 4. How many days on average are customers reallocated to a different node?
  
  ````sql
@@ -47,6 +61,9 @@ GROUP BY region_id;
  
  **Answer:**
  
+ ![4 CS 4](https://user-images.githubusercontent.com/96012488/200129014-67030e60-2216-4fad-ade5-224bc8e6450d.png)
+
+
  ### 5. What is the median, 80th and 95th percentile for this same reallocation days metric for each region?
  
  ````sql
@@ -68,3 +85,9 @@ GROUP BY region_id;
  ````
  
  **Answer:**
+ 
+ ![5 CS 4](https://user-images.githubusercontent.com/96012488/200129032-9cfdd683-166e-4d20-93b5-2a693a72fff3.png)
+ 
+ - The median and the 90th percentile of reallocation days is 15 and 28 respectively for each region.
+ - The 80th percentile of reallocation days is 23 for Africa and Europe while 24 for Asia, America and Australia.
+
