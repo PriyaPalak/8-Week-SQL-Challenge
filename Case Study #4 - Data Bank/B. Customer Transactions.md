@@ -90,5 +90,4 @@ WITH deposit_cte AS
  
  ![Screenshot 2022-11-06 093249](https://user-images.githubusercontent.com/96012488/200153717-3fbfb8d3-839d-4e3f-b8a3-2abbb296df5f.png)
 
-   
- 
+   ***Check out the solution for C. Data Allocation Challenge [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/blob/main/Case%20Study%20%234%20-%20Data%20Bank/C.%20Data%20Allocation%20Challenge.md)!***
