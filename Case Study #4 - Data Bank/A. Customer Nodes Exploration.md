@@ -91,3 +91,4 @@ GROUP BY region_id;
  - The median and the 90th percentile of reallocation days is 15 and 28 respectively for each region.
  - The 80th percentile of reallocation days is 23 for Africa and Europe while 24 for Asia, America and Australia.
 
+***Check out the solution for B.Customer Transactions [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/blob/main/Case%20Study%20%234%20-%20Data%20Bank/B.%20Customer%20Transactions.md)!***
