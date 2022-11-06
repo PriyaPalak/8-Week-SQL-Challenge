@@ -1,4 +1,4 @@
-### 💸 Case study #4 - Data Bank
+# 💸 Case study #4 - Data Bank
 
 ## 📝 Solution B. Customer Transactions
 
