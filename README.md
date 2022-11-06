@@ -10,7 +10,7 @@ like Data Cleaning, Data Transformation and Exploration.
 * [Case Study #1 : Danny's Diner](https://8weeksqlchallenge.com/case-study-1/)
 * [Case Study #2 : Pizza Runner](https://8weeksqlchallenge.com/case-study-2/)
 * [Case Study #3 : Foodie-Fi](https://8weeksqlchallenge.com/case-study-3/)
-*
+* [Case Study #4 : Data Bank](https://8weeksqlchallenge.com/case-study-4/)
 *
 *
 *
@@ -36,5 +36,12 @@ View the case study [here](https://8weeksqlchallenge.com/case-study-2/) and my *
 
 ![image](https://user-images.githubusercontent.com/96012488/193450997-465a1289-9e24-420d-a646-995cd0323994.png)
 
-View thw case study [here](https://8weeksqlchallenge.com/case-study-3/) and my **solution** [here]().
+View the case study [here](https://8weeksqlchallenge.com/case-study-3/) and my **solution** [here]().
+
+## Case Study #4: Data bank
+
+![image](https://user-images.githubusercontent.com/96012488/200170493-dcd11be0-ece7-4387-b7d0-56a2a664f55c.png)
+
+View the case study [here](https://8weeksqlchallenge.com/case-study-4/) and **my solution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/tree/main/Case%20Study%20%234%20-%20Data%20Bank).
+
 
