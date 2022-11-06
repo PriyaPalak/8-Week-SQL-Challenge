@@ -80,7 +80,8 @@ WITH deposit_cte AS
    )
       SELECT 
         customer_id,txn_month,
-        SUM(transaction_amount) OVER (PARTITION BY customer_id ORDER BY txn_month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS closing_balance
+        SUM(transaction_amount) 
+	    OVER (PARTITION BY customer_id ORDER BY txn_month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW ) AS closing_balance
       FROM amounts_cte
       ORDER  BY customer_id,txn_month_id;
  ````
