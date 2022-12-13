@@ -11,10 +11,7 @@ like Data Cleaning, Data Transformation and Exploration.
 * [Case Study #2 : Pizza Runner](https://8weeksqlchallenge.com/case-study-2/)
 * [Case Study #3 : Foodie-Fi](https://8weeksqlchallenge.com/case-study-3/)
 * [Case Study #4 : Data Bank](https://8weeksqlchallenge.com/case-study-4/)
-*
-*
-*
-*
+
 ***
 ## Case Study #1: Danny's Diner
 
