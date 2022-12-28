@@ -124,5 +124,119 @@ FROM counts_cte;
 
 ![CS3 5](https://user-images.githubusercontent.com/96012488/209836287-8d6cf86b-1f26-41e9-bf04-f5b738b2ae86.png)
 
+**5. How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number ?**
+
+**Approach 1:** The idea is to create a CTE with the two dates for churn customers - trial_start_date and churn_start_date.
+- I have created the cte by joining two derived tables, one containing the trial_start_date and another conatining churn_start_date.
+- Then, use it to calculate the number of customers where the difference between the two dates is 7 which means that these customers churned straight after their free trial.
+
+````sql
+WITH dates_cte AS
+(
+SELECT A.customer_id,A.trial_date,B.churn_date
+FROM
+(SELECT customer_id,start_date AS trial_date
+FROM subscriptions
+WHERE plan_id = 0 AND customer_id IN (SELECT customer_id FROM subscriptions WHERE plan_id = 4)) AS A
+JOIN
+(SELECT customer_id,start_date AS churn_date
+FROM subscriptions
+WHERE plan_id =4) AS B
+ON A.customer_id = B.customer_id
+)
+SELECT 
+  COUNT(customer_id) AS churn_after_trial_count,
+  100*COUNT(customer_id)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions) AS churn_percentage
+FROM dates_cte
+WHERE DATEDIFF(DAY,trial_date,churn_date) = 7;
+````
+
+**Approach 2:** Using LEAD() Function 
+
+````sql
+WITH next_plan_cte AS
+(
+SELECT customer_id,plan_id,LEAD(plan_id,1) OVER(PARTITION BY customer_id ORDER BY plan_id) AS next_plan
+FROM subscriptions
+)
+SELECT next_plan, COUNT(customer_id) AS churn_count,
+100*COUNT(customer_id)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions) AS churn_percentage
+FROM next_plan_cte
+WHERE next_plan = 4
+AND plan_id = 0
+GROUP BY next_plan;
+````
+
+**Answer:**
+
+![CS 3 6](https://user-images.githubusercontent.com/96012488/209839979-9c80033d-f550-48e0-9c45-9b3e91e968c5.png)
+
+
+**6. What is the number and percentage of customer plans after their initial free trial?**
+
+**Approach:** Create a next_plan_cte containing the next_plan for each plan_id for each customer using the LEAD() function.
+- LEAD() is a window function that gives the record following the current record. It takes 3 arguments - the field you wanna obtain, the number of records following the current record and the default value in case of no following record (by default it will show NULL)
+
+````sql
+WITH next_plan_cte AS
+(
+SELECT customer_id,plan_id,LEAD(plan_id,1) OVER(PARTITION BY customer_id ORDER BY plan_id) AS next_plan
+FROM subscriptions
+)
+SELECT 
+ next_plan,COUNT(customer_id) AS customer_count,
+ ROUND(100*CAST(COUNT(customer_id) AS FLOAT)/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions),1) AS percentage
+FROM next_plan_cte
+WHERE plan_id = 0
+GROUP BY next_plan;
+````
+**Answer:**
+
+![CS 3 7](https://user-images.githubusercontent.com/96012488/209840118-2a432b21-74f0-4529-ba6e-de6a65a09242.png)
+
+
+- 9.2% of customers have churned out staright after their free trial.
+- The biggest chunk of customers i.e. 54.6 % opted for the basic monthly plan after their free trial, followed by 32.5 % who chose pro-monthly plan.
+- Only 3.7 % of the customers went for the pro-annual plan.
+
+**7. What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31 ?**
+
+````sql
+WITH next_plan_cte AS
+(
+SELECT customer_id,p.plan_name,LEAD(p.plan_name,1) OVER (PARTITION BY customer_id ORDER BY s.start_date) AS next_plan 
+-- Ordering by start_date ensures that the next_plan value is the next plan opted by the customer and not the next plan_id in serial order (which happens when you order by plan_id)
+FROM subscriptions s
+JOIN plans p
+ON s.plan_id = p.plan_id
+WHERE start_date <= '2020-12-31'
+)
+SELECT 
+ plan_name, COUNT(customer_id) AS customer_count,
+ ROUND(100*CONVERT(FLOAT,COUNT(customer_id))/(SELECT COUNT(DISTINCT customer_id) FROM subscriptions),1) AS percentage
+FROM next_plan_cte
+WHERE next_plan IS NULL --This means this is the current plan of the customer (they haven't opted for any other plan or churned after this)
+GROUP BY plan_name
+ORDER BY customer_count;
+````
+
+**Answer:**
+
+![CS 3 8](https://user-images.githubusercontent.com/96012488/209840678-a6d532f9-8afc-4c2d-be1b-8a87799c9061.png)
+
+
+**8. How many customers have upgraded to an annual plan in 2020?**
+
+````sql
+SELECT 
+ COUNT(DISTINCT customer_id) AS customer_count
+FROM subscriptions
+WHERE plan_id = 3
+AND start_date <= '2020-12-31'
+````
+
+**Answer:**
+
+![CS 3 9](https://user-images.githubusercontent.com/96012488/209840852-9bc09405-2b55-435d-9ce0-04c34eadffb2.png)
 
 
