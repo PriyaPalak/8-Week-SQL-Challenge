@@ -1,5 +1,8 @@
 # 🍜 Case Study #3 : Foodie-Fi
 
+## Business Task: 
+Foodie-Fi is a Netflix-type startup but only with cooking shows. Danny created it with a data driven mindset and wanted to ensure all future investment decisions and new features were decided using data.The idea is to use data of this subscription based digital business to understand its customers' journey and behavior on the platform to make data driven decisions regarding future investments and new features.
+
 ## 📝 Solution A. Customer Journey
 
 #### Based off the 8 sample customers provided in the sample from the subscriptions table, write a brief description about each customer’s onboarding journey.
@@ -238,5 +241,97 @@ AND start_date <= '2020-12-31'
 **Answer:**
 
 ![CS 3 9](https://user-images.githubusercontent.com/96012488/209840852-9bc09405-2b55-435d-9ce0-04c34eadffb2.png)
+
+**9. How many days on average does it take for a customer to upgrade to an annual plan from the day they join Foodie-Fi?**
+
+**Approach:** Joining the 'subscriptions' table with annual_plan_day_cte for rows where plan_id = 0. 
+- This will return the trial_start_date that will be the joining day and the annual_plan_day in the combined table.
+- Then, calculate the average of difference between the 2 dates.
+
+````sql
+WITH annual_plan_day_cte AS
+(
+SELECT customer_id,start_date AS annual_plan_day
+FROM subscriptions
+WHERE plan_id = 3
+)
+SELECT 
+ ROUND(AVG(CONVERT(FLOAT,DATEDIFF(DAY,start_date,annual_plan_day))),2) AS avg_days
+FROM subscriptions s
+JOIN annual_plan_day_cte a
+ON s.customer_id = a.customer_id
+WHERE plan_id = 0;
+````
+**Answer:**
+
+![CS 3 11](https://user-images.githubusercontent.com/96012488/209949050-a50902e2-5fe5-46a1-9483-5916738fbf0b.png)
+
+![CS 3 10](https://user-images.githubusercontent.com/96012488/209949082-e4f7bf44-725d-45d3-abde-829eb3ceba37.png)
+
+
+**10. Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc) ?**
+
+- So, we want to break down the number of days it takes for a customer to upgrade to an annual plan into 30 days periods and we have to make 12 such periods.
+- Then, we also need to calculate the count of customers for each period.
+
+	**Approach:** We create 3 CTEs. First is trial_date_cte, Second is annual_plan_date_cte. 
+ - We use these two CTEs to create a third CTE 'buckets' in which we divide the days_of_upgrade  for different customers into 12 buckets, each of 30 days. 
+	- Next, we use CASE WHEN Statement to get the customer count for each bucket.
+
+````sql
+WITH trial_date_cte AS
+(
+SELECT customer_id, start_date AS trial_date
+FROM subscriptions
+WHERE plan_id = 0
+),
+annual_plan_day_cte AS
+(
+SELECT customer_id, start_date AS annual_plan_date
+FROM subscriptions
+WHERE plan_id = 3
+),
+buckets AS
+(
+SELECT a.customer_id,
+DATEDIFF(DAY,trial_date,annual_plan_date)/30 + 1 AS bucket 
+-- Dividing the days difference by 30 returns the integer part of the quotient that is 1 less than the bucket it is falling in. 
+-- Adding 1 returns the bucket number the days difference falls in.
+FROM trial_date_cte t
+JOIN annual_plan_day_cte a
+ON t.customer_id = a.customer_id
+)
+SELECT bucket,
+ CASE WHEN bucket = 1 THEN CONCAT(bucket-1,' - ',bucket*30,' days')
+ ELSE CONCAT((bucket-1)*30 + 1 , ' - ', bucket*30,' days')
+ END AS avg_days_to_upgrade,
+ COUNT(customer_id) AS customers
+FROM buckets
+GROUP BY bucket;
+ ````
+ **Answer:**
+ 
+ ![CS 3 12](https://user-images.githubusercontent.com/96012488/209950373-c521fe34-55de-4f39-872b-ecdcd82236ca.png)
+ 
+ **11. How many customers downgraded from a pro monthly to a basic monthly plan in 2020?**
+ 
+ ````sql
+WITH next_plan_cte AS
+(
+SELECT customer_id,start_date,plan_id, LEAD(plan_id,1) OVER(PARTITION BY customer_id ORDER BY start_date) AS next_plan
+FROM subscriptions
+WHERE start_date <= '2020-12-31'
+)
+SELECT 
+  COUNT(customer_id) AS customer_count
+FROM next_plan_cte
+WHERE plan_id = 2
+AND next_plan = 1;
+ ````
+**Answer:**
+
+![CS 3 13](https://user-images.githubusercontent.com/96012488/209950531-2742d2d0-968a-4801-84ae-47675be5bf73.png)
+
+- Thus, no customer downgraded from a pro-monthly to a basic monthly in 2020.
 
 
