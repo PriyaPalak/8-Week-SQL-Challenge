@@ -115,9 +115,9 @@ VALUES  (1,1,101,5),
 #### 4. Using your newly generated table - can you join all of the information together to form a table which has the following information for successful deliveries?
       
 -  **customer_id**
--  **order_id
+-  **order_id**
 -  **runner_id**
--  **rating
+-  **rating**
 -  **order_time**
 -  **pickup_time**
 -  **Time between order and pickup**
