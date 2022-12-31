@@ -6,7 +6,7 @@
   
 *While solving the queries, I also realised that data type of certain TEXT columns needs to be converted to Character type (Nvarchar) so that the various String Functions (like STRING_SPLIT(), STRING_AGG(), and CONCAT_WS()) can be performed on them.*
 
-### Data Type Transformations to be able to perform certain operations
+### Required Data Type Transformations 
 
 - 1. Creating a temporary table `#pizza_recipes` and changing the data type of `toppings` from **TEXT** to **NVARCHAR(100)** to be able to perform STRING_SPLIT() on it.
 
@@ -39,10 +39,10 @@ ALTER TABLE #pizza_names
 ALTER COLUMN pizza_name NVARCHAR(100);
 ````
 
-
+*** 
 *We need to create a few temporary tables with more simple and clear formats using the given tables, so that we can easily answer the given questions.*
 
-### Temporary tables required in many queries
+### Required Temporary tables 
 
 **1.**  Creating the `#pizzas_with_toppings` table (*It contains pizza ids with separated topping ids and separated topping names with one row for each topping name*).
 - STRING_SPLIT() is a user_defined table_valued function that splits a string array into multiple rows of substrings based on the specified separator.
@@ -109,6 +109,7 @@ WHERE extras != '';
 
 ![Screenshot 2022-12-31 142209](https://user-images.githubusercontent.com/96012488/210130991-f06f5273-ed24-41d8-bdaf-5ca702122673.png)
 
+***
 
 ***Let's answer the Questions now!***
 
@@ -324,4 +325,4 @@ ORDER BY total_count DESC;
 -  It was not easy to picture the required CTEs in mind as the designs were quite complex involving many tables and newly created temporary tables. 
 So, my approach was this: first what columns do I need, which tables will i fetch those columns from and then how to join all those tables and then any required conditions.
 
-
+***Click [here]() to view solution for the next section - Pricing and Ratings!***
