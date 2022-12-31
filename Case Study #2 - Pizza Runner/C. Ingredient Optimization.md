@@ -58,6 +58,15 @@ CROSS APPLY STRING_SPLIT(r.toppings, ',') as t
 JOIN #pizza_toppings pt
 ON TRIM(t.value) = pt.topping_id;
 ````
+**Before:**
+
+|pizza_recipes|pizza_toppings|
+|---|---|
+|![Screenshot 2022-12-31 140551](https://user-images.githubusercontent.com/96012488/210130640-70a025ec-e642-4831-a49c-5b08d0c8645d.png)|![Screenshot 2022-12-31 140635](https://user-images.githubusercontent.com/96012488/210130657-104f4396-0d93-4a6f-8461-31ab08e558ac.png)|
+
+**After:   `pizzas_with_toppings`**
+
+![Screenshot 2022-12-31 140130](https://user-images.githubusercontent.com/96012488/210130552-f9b319c6-5aa2-4182-866c-4d541d10da44.png)
 
 **2.**  Adding a column `record_id` to the table `#customer_orders` to select each pizza in an order individually, using IDENTITY() function.
 - IDENTITY() is a function used to create auto-incrementing columns, i.e., the value of the column increases automatically everytime a new row is inserted into the table.
@@ -67,6 +76,10 @@ ON TRIM(t.value) = pt.topping_id;
 ALTER TABLE #customer_orders
 ADD record_id INT IDENTITY(1,1)
 ````
+| Before|After|
+|---|---|
+|![Screenshot 2022-12-31 141736](https://user-images.githubusercontent.com/96012488/210130906-5a5d2ffc-5b51-4841-a827-3d3231a68564.png)|![Screenshot 2022-12-31 141930](https://user-images.githubusercontent.com/96012488/210130942-7d14e085-b252-427a-9ddc-6d44eeb52797.png)|
+
 
 
 **3.** Creating the table `records_with_exclusions` (*It contains record_ids and exclusions for each record*).
@@ -80,6 +93,9 @@ CROSS APPLY STRING_SPLIT(c.exclusions,',')
 WHERE exclusions != '';
 ````
 
+![Screenshot 2022-12-31 142124](https://user-images.githubusercontent.com/96012488/210130980-c378d835-cf1a-4b11-b0ca-7dcf5bbcfca5.png)
+
+
 **4.**  Creating the table` records_with_extras` (*It contains record_ids and extras for each record*)
 
 ````sql
@@ -91,7 +107,10 @@ CROSS APPLY STRING_SPLIT(c.extras,',')
 WHERE extras != '';
 ````
 
-*Let's answer the Questions now*
+![Screenshot 2022-12-31 142209](https://user-images.githubusercontent.com/96012488/210130991-f06f5273-ed24-41d8-bdaf-5ca702122673.png)
+
+
+***Let's answer the Questions now!***
 
 #### 1. What are the standard ingredients for each pizza?
 
@@ -110,6 +129,9 @@ GROUP BY pizza_id;
 
 **Answer:**
 
+![Screenshot 2022-12-31 142652](https://user-images.githubusercontent.com/96012488/210131121-00cfd5d9-85c5-4a84-aed7-08196c004ffa.png)
+
+
 #### 2. What was the most commonly added extra?  
 
 **Approach:**
@@ -124,6 +146,8 @@ ON r.extras = pt.topping_id
 GROUP BY pt.topping_name;
 ````
 **Answer:**
+
+![Screenshot 2022-12-31 142804](https://user-images.githubusercontent.com/96012488/210131142-d6bd8fbe-0740-490d-af51-3094b6fbff7f.png)
 
 - Bacon was the most commonly added extra.
 
@@ -142,6 +166,8 @@ GROUP BY pt.topping_name;
 ````
 
 **Answer:**
+
+![Screenshot 2022-12-31 142838](https://user-images.githubusercontent.com/96012488/210131160-a796435c-0583-4bb7-9572-50f42de2a621.png)
 
 - Cheese was the most common exclusion.
 
@@ -192,7 +218,7 @@ SELECT * FROM extras_cte
 
 SELECT 
  c.record_id,
- CONCAT_WS('-', p.pizza_name, STRING_AGG(optimisation, '-'))
+ CONCAT_WS('-', p.pizza_name, STRING_AGG(optimisation, '-')) AS desired format
 FROM #customer_orders c
 JOIN #pizza_names p
 ON c.pizza_id = p.pizza_id
@@ -202,6 +228,9 @@ GROUP BY c.record_id,p.pizza_name
 ORDER BY c.record_id;
 ````
 **Answer:**
+
+![Screenshot 2022-12-31 143135](https://user-images.githubusercontent.com/96012488/210131210-e459e7b5-e811-4ee1-970d-4ca72554e102.png)
+
 
 #### 5. Generate an alphabetically ordered comma separated ingredient list for each pizza order from the customer_orders table and add a 2x in front of any relevant ingredients
 #### For example: "Meat Lovers: 2xBacon, Beef, ... , Salami" 
@@ -240,6 +269,9 @@ ORDER BY record_id;
 - *Note: In this query, we have used the same alias 'r' for both the tables #record_with_extras and #records_with_exclusions but in different subqueries and that works just fine.*
 
 **Answer:**
+
+![Screenshot 2022-12-31 143259](https://user-images.githubusercontent.com/96012488/210131239-0731b809-6682-426d-b7cf-0aaa2099cf38.png)
+
 
 #### 6. What is the total quantity of each ingredient used in all delivered pizzas sorted by most frequent first? 
 
@@ -281,8 +313,9 @@ ORDER BY total_count DESC;
 
 **Answer:**
 
+![Screenshot 2022-12-31 143351](https://user-images.githubusercontent.com/96012488/210131260-ed356e25-e03d-414a-abc4-fd7f775b48d5.png)
 
-
+- Thus, **Mushroom** is the most frequently used ingredient.
 
 ### Learnings  
 
