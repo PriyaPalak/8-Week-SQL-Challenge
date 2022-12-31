@@ -42,7 +42,7 @@ ALTER COLUMN pizza_name NVARCHAR(100);
 
 *We need to create a few temporary tables with more simple and clear formats using the given tables, so that we can easily answer the given questions.*
 
-### Temporary tables used repeatedly
+### Temporary tables required in many queries
 
 **1.**  Creating the `#pizzas_with_toppings` table (*It contains pizza ids with separated topping ids and separated topping names with one row for each topping name*).
 - STRING_SPLIT() is a user_defined table_valued function that splits a string array into multiple rows of substrings based on the specified separator.
