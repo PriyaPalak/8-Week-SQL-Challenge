@@ -325,4 +325,4 @@ ORDER BY total_count DESC;
 -  It was not easy to picture the required CTEs in mind as the designs were quite complex involving many tables and newly created temporary tables. 
 So, my approach was this: first what columns do I need, which tables will i fetch those columns from and then how to join all those tables and then any required conditions.
 
-***Click [here]() to view solution for the next section - Pricing and Ratings!***
+***Click [here]() for solution for D. Pricing and Ratings!***
