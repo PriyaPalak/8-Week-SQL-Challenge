@@ -29,5 +29,106 @@ However, it doesn't work in SQL Server. So, we need to use the System Interface 
 **(c) Add a month_number with the calendar month for each week_date value as the 3rd column.**
 
 ````sql
-
+ALTER TABLE weekly_sales
+ADD month_number AS DATEPART(month,week_date);
 ````
+
+**(d) Add a calendar_year column as the 4th column containing either 2018, 2019 or 2020 values.**
+
+````sql
+ALTER TABLE weekly_sales
+ADD calendar_year AS DATEPART(year,week_date);
+````
+
+**(e) Add a new column called age_band after the original segment column using the following mapping on the number inside the segment value:**
+
+![Screenshot 2023-03-02 122335](https://user-images.githubusercontent.com/96012488/222353329-4be01369-83b9-4e62-903a-c1c57f260dc2.png)
+
+````sql
+ALTER TABLE weekly_sales
+ADD age_band AS CASE WHEN segment LIKE '_1' THEN 'Young Adults'
+                     WHEN segment LIKE '_2' THEN 'Middle Aged'
+                     WHEN segment LIKE '_3' OR segment LIKE '_4' THEN 'Retirees'
+                     ELSE NULL
+                     END;
+````
+
+**(f) Add a new demographic column using the following mapping for the first letter in the segment values:**
+
+![Screenshot 2023-03-02 122458](https://user-images.githubusercontent.com/96012488/222353614-f13702f7-00cb-4734-848f-beb73e457a58.png)
+
+
+````sql
+ALTER TABLE weekly_sales
+ADD demographic AS CASE WHEN segment LIKE 'C_' THEN 'Couples'
+                        WHEN segment LIKE 'F_' THEN 'Families'
+                        ELSE NULL
+                        END;
+````
+
+**(g) Ensure all null string values with an "unknown" string value in the original segment column as well as the new age_band and demographic columns.**
+
+````sql
+UPDATE weekly_sales
+SET segment = 'unknown'
+WHERE segment = 'null';
+````
+
+- I tried updating all the 3 columns using a single UPDATE statemnt, however, computed columns cannnot be modified like this.
+- To change the 2 computed columns, age_band and demographic, we need to drop these columns and recreate them.
+
+````sql
+ALTER TABLE weekly_sales
+DROP COLUMN age_band,demographic;
+````
+
+````sql
+ALTER TABLE weekly_sales
+ADD age_band AS CASE WHEN segment LIKE '_1' THEN 'Young Adults'
+                     WHEN segment LIKE '_2' THEN 'Middle Aged'
+                     WHEN segment LIKE '_3' OR segment LIKE '_4' THEN 'Retirees'
+                     ELSE 'unknown'
+                     END;
+````
+````sql
+ALTER TABLE weekly_sales
+ADD demographic AS CASE WHEN segment LIKE 'C_' THEN 'Couples'
+	                      WHEN segment LIKE 'F_' THEN 'Families'
+	                      ELSE 'unknown'
+	                      END;
+````
+
+**(h) Generate a new avg_transaction column as the sales value divided by transactions rounded to 2 decimal places for each record.**
+
+- `avg_transaction` is computed by the division of two integer columns sales and transactions. 
+- Integer division results in truncation of fractional part, whereas we want the value rounded to 2 decimal places.
+- So, let's change the data type of one of the columns, say sales, to FLOAT.(DECIMAL/NUMERIC keep the insignificant zeros even afer rounding off, so we'll go with Float).
+
+````sql
+ALTER TABLE weekly_sales
+ALTER COLUMN sales FLOAT;
+````
+
+- Now, Let's add the column `avg_transaction` by dividing sales by transactions and using the ROUND function to set it upto 2 decimal places.
+
+````sql
+ALTER TABLE weekly_sales
+ADD avg_transaction AS ROUND(sales/transactions,2);
+````
+
+- Now, we need to generate a new table clean_weekly_sales which contains data with all the above steps performed.
+
+*For this, I'm gonna rename this table to clean_weekly_sales. Then, I'll recreate the old table and name it weekly_sales. This is the opposite way of doing it. The straight way would be to create a copy of the original table, name it clean_weekly_sales and make given changes to it.*
+
+## :memo: Solution 2. Data Exploration
+
+
+
+
+
+
+
+
+
+
+
