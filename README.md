@@ -33,7 +33,7 @@ View the case study [here](https://8weeksqlchallenge.com/case-study-2/) and my *
 
 ![image](https://user-images.githubusercontent.com/96012488/193450997-465a1289-9e24-420d-a646-995cd0323994.png)
 
-View the case study [here](https://8weeksqlchallenge.com/case-study-3/) and my **solution** [here]().
+View the case study [here](https://8weeksqlchallenge.com/case-study-3/) and my **solution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/tree/main/Case%20Study%20%233%20-%20Foodie-Fi).
 
 ## Case Study #4: Data bank
 
@@ -41,4 +41,8 @@ View the case study [here](https://8weeksqlchallenge.com/case-study-3/) and my *
 
 View the case study [here](https://8weeksqlchallenge.com/case-study-4/) and **my solution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/tree/main/Case%20Study%20%234%20-%20Data%20Bank).
 
+## Case Study #5: Data Mart
 
+![image](https://github.com/PriyaPalak/8-Week-SQL-Challenge/assets/96012488/fe8fa8ac-78aa-4eb1-b2b0-77c9d292242b)
+
+View the case study [here](https://8weeksqlchallenge.com/case-study-5/) and **mysolution** [here](https://github.com/PriyaPalak/8-Week-SQL-Challenge/tree/main/Case%20Study%20%235%20-%20Data%20Mart).
